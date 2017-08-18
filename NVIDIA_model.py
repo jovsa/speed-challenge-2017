@@ -385,3 +385,4 @@ plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 plt.savefig('./assets/MSE_per_epoch.png')
 
+print('done')
