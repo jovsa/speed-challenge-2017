@@ -74,11 +74,13 @@ train_data, valid_data = train_valid_split(train_meta, seeds[0])
 
 fig, ax = plt.subplots(figsize=(20,10))
 plt.plot(train_data.sort_values(['image_index'])[['image_index']], train_data.sort_values(['image_index'])[['speed']], 'ro')
-plt.plot(valid_data.sort_values(['image_index'])[['image_index']], valid_data.sort_values(['image_index'])[['speed']], 'gX')
+plt.plot(valid_data.sort_values(['image_index'])[['image_index']], valid_data.sort_values(['image_index'])[['speed']], 'go')
 plt.xlabel('image_index (or time since start)')
 plt.ylabel('speed')
 plt.title('Speed vs time')
+plt.legend(['training set', 'validation set'], loc='upper right')
 plt.savefig('./assets/speed_vs_time_val_train.png')
+plt.close()
 
 print('----')
 print('valid_data: ', valid_data.shape)
@@ -368,8 +370,8 @@ train_generator = generate_training_data(train_data, BATCH)
 history = model.fit_generator(
         train_generator, 
         steps_per_epoch = 400, 
-        epochs = 25,
-    callbacks = callbacks_list,
+        epochs = 85,
+        callbacks = callbacks_list,
         verbose = 1,
         validation_data = valid_generator,
         validation_steps = val_size)
@@ -377,12 +379,14 @@ history = model.fit_generator(
 print(history)
 
 ### plot the training and validation loss for each epoch
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
+fig, ax = plt.subplots(figsize=(20,10))
+plt.plot(history.history['loss'], 'ro--')
+plt.plot(history.history['val_loss'], 'go--')
 plt.title('Model-v2test mean squared error loss 15 epochs')
 plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 plt.savefig('./assets/MSE_per_epoch.png')
+plt.close()
 
 print('done')
