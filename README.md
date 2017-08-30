@@ -1,4 +1,4 @@
-# speed-challange-2017
+# Speed Challenge 2017
 
 Accompanying write-up can be found on my [medium](https://medium.com/weightsandbiases/predicting-vehicle-speed-from-dashcam-video-f6158054f6fd) post.
 
